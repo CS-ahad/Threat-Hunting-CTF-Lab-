@@ -94,58 +94,79 @@ Attack Vector:    “Open Attachment” button click
 └─────────────────────────────────────────────────────────────────┘
 
 ```
+
+🏗️ Architecture & Infrastructure
 ```
-## 🏗️ Architecture & Infrastructure
+Lab Environment
+                              ┌──────────────────────────────┐
+                              │       WAZUH SIEM SERVER      │
+                              │         Ubuntu 22.04         │
+                              │        192.168.56.125        │
+                              ├──────────────────────────────┤
+                              │ Wazuh Manager 4.14.7         │
+                              │ • Event Processing           │
+                              │ • Alerting & Correlation     │
+                              │ • Agent Management            │
+                              │ • Threat Detection            │
+                              │                              │
+                              │ Wazuh Dashboard              │
+                              │ • Real-time Visualization    │
+                              │ • Alert Management            │
+                              │                              │
+                              │ OpenSearch / Elasticsearch    │
+                              │ • Log Indexing               │
+                              │ • Event Storage              │
+                              └──────────────┬───────────────┘
+                                             │
+                         ┌───────────────────┴───────────────────┐
+                         │                                       │
+                         ▼                                       ▼
+              ┌──────────────────────┐              ┌──────────────────────┐
+              │    RECEPTION VM      │              │    ACCOUNTING VM     │
+              │     RECEPITON-1      │              │   MDClinc-Account    │
+              │   192.168.56.127     │              │   192.168.56.129     │
+              ├──────────────────────┤              ├──────────────────────┤
+              │ Windows 10           │              │ Windows 10           │
+              │ 2 vCPU / 4 GB RAM    │              │ 2 vCPU / 4 GB RAM    │
+              │                      │              │                      │
+              │ Components           │              │ Components           │
+              │ • Wazuh Agent        │              │ • Wazuh Agent        │
+              │ • Sysmon             │              │ • Sysmon              │
+              │ • Windows Logs       │              │ • Windows Logs        │
+              │ • PowerShell         │              │ • Task Scheduler      │
+              │ • Script Logging     │              │ • Script Logging      │
+              │                      │              │                      │
+              │ Event Sources        │              │ Event Sources         │
+              │ • Sysmon:            │              │ • Sysmon:             │
+              │   1, 3, 11, 13       │              │   1, 3, 11, 13        │
+              │ • WinEvent:          │              │ • WinEvent:           │
+              │   4688, 4698, 7045   │              │   4688, 4698          │
+              └──────────────────────┘              └──────────────────────┘
+```
+Infrastructure Overview
+System	OS	IP Address	Purpose
+Wazuh SIEM Server	Ubuntu 22.04	192.168.56.125	Monitoring, detection & alerting
+Reception VM	Windows 10	192.168.56.127	Primary endpoint / attack target
+Accounting VM	Windows 10	192.168.56.129	Secondary monitored endpoint
+Monitoring Stack
+Wazuh Manager 4.14.7 — Event processing, rule correlation, alerting and agent management
+Wazuh Dashboard — Alert visualization and investigation
+OpenSearch / Elasticsearch — Event indexing and storage
+Wazuh Agent — Endpoint telemetry collection
+Sysmon — Process, network, file and registry telemetry
+Windows Event Logs — Native Windows security and system events
+PowerShell / Script Logging — Command and script execution visibility
+Event Sources
+```
+Reception VM
 
-### Lab Environment Diagram
+Sysmon: 1, 3, 11, 13
+Windows Events: 4688, 4698, 7045
 
-┌────────────────────────────────────────────────────────────────────┐
-│                      WAZUH SIEM SERVER (Ubuntu 22.04)              │
-│                            192.168.56.125                          │
-│                                                                    │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │ Wazuh Manager 4.14.7                                         │ │
-│  │ ├─ Real-time event processing & alerting                    │ │
-│  │ ├─ Agent management (2 active agents)                       │ │
-│  │ ├─ Rule engine & correlation                                │ │
-│  │ └─ Threat detection & response                              │ │
-│  └──────────────────────────────────────────────────────────────┘ │
-│                              │                                     │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │ Wazuh Dashboard (Web UI)                                     │ │
-│  │ ├─ URL: https://192.168.56.125                             │ │
-│  │ ├─ Real-time log analysis & visualization                 │ │
-│  │ └─ Alert management interface                              │ │
-│  └──────────────────────────────────────────────────────────────┘ │
-│                              │                                     │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │ OpenSearch/Elasticsearch Backend                             │ │
-│  │ ├─ Log indexing & storage                                   │ │
-│  │ └─ Full event retention for analysis                        │ │
-│  └──────────────────────────────────────────────────────────────┘ │
-└────────────────────────────────────────────────────────────────────┘
-↓              ↓
-┌──────────────────┐  ┌──────────────────┐
-│  RECEPTION VM    │  │ ACCOUNTING VM    │
-│  (RECEPITON-1)   │  │(MDClinc-Account) │
-│  192.168.56.127  │  │  192.168.56.129  │
-├──────────────────┤  ├──────────────────┤
-│ Windows 10       │  │ Windows 10       │
-│ 2 vCPU, 4GB RAM  │  │ 2 vCPU, 4GB RAM  │
-│                  │  │                  │
-│ Components:      │  │ Components:      │
-│ • Wazuh Agent    │  │ • Wazuh Agent    │
-│ • Sysmon         │  │ • Sysmon         │
-│ • Windows Logs   │  │ • Windows Logs   │
-│ • PowerShell     │  │ • Task Scheduler │
-│ • Script Logging │  │ • Script Logging │
-│                  │  │                  │
-│ Event Sources:   │  │ Event Sources:   │
-│ • Sysmon IDs:    │  │ • Sysmon IDs:    │
-│   1,3,11,13      │  │   1,3,11,13      │
-│ • WinEvent IDs:  │  │ • WinEvent IDs:  │
-│   4688,4698,7045 │  │   4688,4698      │
-└──────────────────┘  └──────────────────┘
+Accounting VM
+
+Sysmon: 1, 3, 11, 13
+Windows Events: 4688, 4698┘
 ```
 
 
