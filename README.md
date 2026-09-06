@@ -312,7 +312,7 @@ Key Indicators:
 	•	Suspicious: Hidden folder in system directory
 	•	Path: C:\ProgramData (sensitive system location)
 
-## FLAG 2 — Persistence & Lateral Movement
+## FLAG 2 — Persistence Mechanism
 
 Flag Value: FLAG{MDCLINIC_HAB4TENANCE_2026} (Base64 encoded in scheduled task)
 
