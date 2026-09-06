@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Educational-blue)]()
 [![Difficulty](https://img.shields.io/badge/Difficulty-Intermediate%2FAdvanced-red)]()
 [![Flags](https://img.shields.io/badge/Flags-2-green)]()
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
+[![Status](https://img.shields.io/badge/Status-Completed-brightgreen)]()
 [![Version](https://img.shields.io/badge/Version-1.0-blue)]()
 
 ---
@@ -126,7 +126,7 @@ Attack Vector:    “Open Attachment” button click
                          ▼                                       ▼
               ┌──────────────────────┐              ┌──────────────────────┐
               │     RECEPTION VM     │              │    ACCOUNTING VM     │
-              │      RECEPITON-1     │              │    MDClinc-Account   │
+              │    RECEPTION-1     │              │     MDClinic-Account │
               │    192.168.56.127    │              │    192.168.56.129    │
               ├──────────────────────┤              ├──────────────────────┤
               │ Windows 10           │              │ Windows 10           │
@@ -207,7 +207,9 @@ Attack Vector:    “Open Attachment” button click
 | Reception VM | Windows 10 Pro | Initial compromise target |
 | Accounting VM | Windows 10 Pro | Secondary investigation target |
 | Network | Host-only | 192.168.56.0/24 subnet |
+
 ---
+
 ## 🔴 Attack Execution Details
 ### Phase 1: Initial Access
 
