@@ -50,6 +50,7 @@ Attack Vector:    “Open Attachment” button click
 
 
 ### Complete Attack Chain
+---
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │ PHASE 1: INITIAL ACCESS                                        │
@@ -96,8 +97,10 @@ Attack Vector:    “Open Attachment” button click
 ```
 
 ## 🏗️ Architecture & Infrastructure
-## Lab Environment Diagram
+---
 ```
+## Lab Environment Diagram
+
 
                               ┌─────────────────────────────┐
                               │      WAZUH SIEM SERVER      │
