@@ -95,7 +95,7 @@ Attack Vector:    “Open Attachment” button click
 
 ```
 
-🏗️ Architecture & Infrastructure
+## 🏗️ Architecture & Infrastructure
 ```
 Lab Environment Diagram
                               ┌─────────────────────────────┐
@@ -176,66 +176,6 @@ Lab Environment Diagram
 - Network Connection Events
 - File Creation and Modification Events
 
-## Architecture Diagram
-
-```text
-┌─────────────────────┐
-│   Wazuh Server      │
-│ 192.168.56.125      │
-│ Ubuntu 22.04        │
-└─────────┬───────────┘
-          │
- ┌────────┴────────┐
- │                 │
- ▼                 ▼
-┌─────────────┐  ┌─────────────┐
-│ Reception VM│  │Accounting VM│
-│192.168.56.127│ │192.168.56.129│
-│ Windows 10  │  │ Windows 10  │
-└─────────────┘  └─────────────┘
-
-Reception VM
-
-Sysmon:          1, 3, 11, 13
-Windows Events:  4688, 4698, 7045
-
-
-Accounting VM
-
-Sysmon:          1, 3, 11, 13
-Windows Events:  4688, 4698
-
-
-
-### Technology Stack
-
-**SIEM & Monitoring:**
-
-| Component | Version | Role |
-|-----------|---------|------|
-| Wazuh Manager | 4.14.7 | Central security management |
-| Wazuh Agent | 4.14.7 | Endpoint event collection |
-| Wazuh Dashboard | Latest | Web-based interface |
-| OpenSearch | Latest | Log storage & indexing |
-
-**Event Collection & Analysis:**
-
-| Tool | Version | Events Captured |
-|------|---------|-----------------|
-| Sysmon | Latest | Events (ID 1,3,11,13,17-21) |
-| Windows Event Logs | Native | Process exec, Task creation, Registry changes |
-| PowerShell Logging | Native | Script block execution, command history |
-| Wazuh Rules | 4.14.7 | Custom alerts for suspicious activity |
-
-**Attack Infrastructure:**
-
-| Component | OS | Purpose |
-|-----------|----|----|
-| Wazuh Server | Ubuntu 22.04 LTS | SIEM platform |
-| Reception VM | Windows 10 Pro | Initial compromise target |
-| Accounting VM | Windows 10 Pro | Secondary investigation target |
-| Network | Host-only | 192.168.56.0/24 subnet |
-```
 ---
 
 ## 🔴 Attack Execution Details
