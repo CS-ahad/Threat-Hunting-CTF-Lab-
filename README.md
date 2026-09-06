@@ -96,8 +96,9 @@ Attack Vector:    “Open Attachment” button click
 ```
 
 ## 🏗️ Architecture & Infrastructure
+## Lab Environment Diagram
 ```
-Lab Environment Diagram
+
                               ┌─────────────────────────────┐
                               │      WAZUH SIEM SERVER      │
                               │        Ubuntu 22.04         │
@@ -244,7 +245,7 @@ Event ID 200 (Task Executed):
   Execution Context: PowerShell with EncodedCommand
 🚩 Flags & Investigation Guide
 
-FLAG 1 — Initial Access Detection
+## FLAG 1 — Initial Access Detection
 
 Flag Value: Flag{1IN_015_4Atttak_Initial_Access}
 
@@ -278,7 +279,7 @@ Key Indicators:
 	•	Suspicious: Hidden folder in system directory
 	•	Path: C:\ProgramData (sensitive system location)
 
-FLAG 2 — Persistence & Lateral Movement
+## FLAG 2 — Persistence & Lateral Movement
 
 Flag Value: FLAG{MDCLINIC_HAB4TENANCE_2026} (Base64 encoded in scheduled task)
 
@@ -326,7 +327,7 @@ Key Indicators:
 	•	Trigger: At Logon
 	•	Hidden: Yes
 
-🔍 Investigation Tools & Queries
+## 🔍 Investigation Tools & Queries
 
 Wazuh Dashboard Navigation
 
@@ -373,7 +374,7 @@ analysis Workflow:
    └─ Check registry modifications
    └─ Identify persistence mechanisms
 
-📚 Event Reference
+## 📚 Event Reference
 
 Sysmon Events in This Lab
 
@@ -393,7 +394,7 @@ Event ID	Source	Purpose
 4700	Security	Scheduled Task Disabled
 7045	System	Service Installed
 
-📊 Expected Findings Summary
+## 📊 Expected Findings Summary
 
 Key Artifacts to Discover:
 
@@ -403,7 +404,7 @@ Key Artifacts to Discover:
 	•	✅ File creation in suspicious paths (FLAG locations)
 	•	✅ System behavior anomalies in SIEM logs
 
-👤 Project Author
+## 👤 Project Author
 
 Ahad Alotaibi
 
